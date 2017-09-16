@@ -5,6 +5,6 @@ import PackageDescription
 let package = Package(
     name: "socket.io-test",
     dependencies: [
-        .Package(url: "https://github.com/socketio/socket.io-client-swift", majorVersion: 10)
+        .Package(url: "https://github.com/socketio/socket.io-client-swift", majorVersion: 11)
     ]
 )
