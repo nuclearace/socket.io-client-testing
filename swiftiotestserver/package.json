@@ -1,0 +1,8 @@
+{
+	"dependencies": {
+		"socket.io": "",
+		"socket.io-client": "",
+		"express": "",
+		"socketio-jwt": ""
+	}
+}
