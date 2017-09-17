@@ -1,5 +1,5 @@
 import Dispatch
-import Cocoa
+import Foundation
 import SocketIO
 
 let NUM_SOCKETS = 90
