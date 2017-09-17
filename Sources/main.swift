@@ -1,3 +1,4 @@
+import CoreFoundation
 import Dispatch
 import Foundation
 import SocketIO
@@ -216,11 +217,6 @@ socket.on("multipleItems") {data, ack in
     print("Got multipleItems")
     gotMult = true
     print(data)
-    // println(reflect(data![0]))
-    if var arr = data[1] as? [AnyObject] {
-        arr.append(5 as AnyObject)
-        // println(arr)
-    }
 }
 
 socket.on("foobar") {data, ack in
