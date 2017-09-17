@@ -32,7 +32,7 @@ let data3 = "2".data(using: String.Encoding.utf8, allowLossyConversion: false)!
 let data4 = "3".data(using: String.Encoding.utf8, allowLossyConversion: false)!
 let data5 = "4".data(using: String.Encoding.utf8, allowLossyConversion: false)!
 let data6 = "5".data(using: String.Encoding.utf8, allowLossyConversion: false)!
-let data7 = NSData()
+let data7 = Data()
 
 let b64JsonString = "{\"hello\":\"+\"}"
 let nspString = "/swift"
@@ -287,16 +287,16 @@ socket.on("doubleTest") {data, ack in
 }
 
 socket.on("dataTest") {data, ack in
-    if let data = data[0] as? NSData {
+    if let data = data[0] as? Data {
         print("Got binary")
         gotData = true
     }
 }
 
 socket.on("objectDataTest") {data, ack in
-    if let dict = data[0] as? NSDictionary {
-        if let data = dict["data"] as? NSData {
-            let string = String(data: data as Data, encoding: .utf8)
+    if let dict = data[0] as? [String: Any] {
+        if let data = dict["data"] as? Data {
+            let string = String(data: data, encoding: .utf8)
             print("Got data: \(string!)")
         }
     }
@@ -347,8 +347,8 @@ socket.on("ackEvent") {data, ack in
 
 socket.on("binaryAckEvent") {data, ack in
     print("Got binaryAckEvent")
-    if let data = data[0] as? NSData {
-        let str = String(data: data as Data, encoding: .utf8)!
+    if let data = data[0] as? Data {
+        let str = String(data: data, encoding: .utf8)!
         // println(data)
         // println(str)
         assert(str == "gakgakgak2", "Binary in binaryAckEvent is wrong")
@@ -363,10 +363,9 @@ socket.on("multAckEvent") {data, ack in
     assert(data.count != 0, "data in multAckEvent is empty")
     print("got multiAckEvent")
 
-    if let gakData = data[0] as? NSData {
+    if let gakData = data[0] as? Data {
         print("Got gakData in multAckEvent")
-        let str = String(data: gakData as
-        Data, encoding: .utf8)!
+        let str = String(data: gakData, encoding: .utf8)!
         // println(gakData)
         // println(str)
         assert(str == "gakgakgak3", "Binary in multAckEvent is wrong")
@@ -432,25 +431,6 @@ socket.on("joinNsp") {data, ack in
     socket.joinNamespace("/swift")
 }
 
-socket.on("setClientObject") {data, ack in
-    if let obj = data[0] as? NSDictionary {
-        clientObject = NSMutableDictionary(dictionary: obj)
-    }
-}
-
-socket.on("updateClientObject") {data, ack in
-    if let obj = data[0] as? NSDictionary {
-        for (key, value) in obj {
-            clientObject[key as! NSCopying] = value
-        }
-
-        print(clientObject)
-        ack.with(["Updated"])
-    } else {
-        ack.with(["Failed"])
-    }
-}
-
 socket.on("login") {data, ack in
     //    for i in 0..<500 {
     //        socket.emit("pm", ["to": "nuclearace", "msg": "hello hellohellohellohellohellohellohellohellohello"])
@@ -491,8 +471,7 @@ socket.on("kick") {data, ack in
 
 connectSocket()
 
-let waitTime = DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
-DispatchQueue.main.asyncAfter(deadline: waitTime) {
+DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(6)) {
 //    print("socket closing")
 //    socket.close(fast: false)
 //
