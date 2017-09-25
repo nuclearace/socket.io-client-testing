@@ -192,7 +192,7 @@ socket.on("someSpam") {data, ack in
     print("Got some spam \(data[0] as! Int)")
 }
 
-socket.on("closeTest") {data in
+socket.on("closeTest") {data, ack in
     print("got closeTest")
     // socket.close()
 }
