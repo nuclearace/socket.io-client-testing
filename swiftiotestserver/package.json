@@ -3,6 +3,7 @@
 		"socket.io": "",
 		"socket.io-client": "",
 		"express": "",
-		"socketio-jwt": ""
+		"socketio-jwt": "",
+		"ws": ""
 	}
 }

@@ -3,41 +3,15 @@ var app = require('http').createServer((req, res) => {
     res.end("failed")
 })
 var server = app.listen(8080)
- var io = require('socket.io')(server, {
+var io = require('socket.io')(server, {
     // pingTimeout: 3000,
     // pingInterval: 10000,
-    path: "/test",
+    // path: "/test",
     //transports: ['websocket'],
     // allowUpgrades: true,
     // cookie: false
-  })
+})
 var fs = require("fs")
-//var socketioJwt = require("socketio-jwt")
-
-// io.use(socketioJwt.authorize({
-//     secret: "tracy",
-//     handshake: true
-// }))
-//
-// io.use(function(socket, next) {
-//     if (socket.request.headers.cookie)  {
-//         console.log(socket.request.headers.cookie)
-//         return next()
-//     }
-//
-//     next(new Error('Authentication error'))
-//
-//     // setTimeout(function() {
-//     //     if (socket.request.headers.cookie)  {
-//     //         console.log(socket.request.headers.cookie)
-//     //         return next()
-//     //     }
-//     //
-//     //     next(new Error('Authentication error'))
-//     // }, 250001)
-// })
-
-
 var println = console.log
 var sentReconnect = false
 
@@ -45,13 +19,6 @@ var nsp = io.of("/swift")
 nsp.on('connection', function(socket) {
     console.log("Someone joined swift")
     console.log("sid: " + socket.id)
-        // socket.emit("nspTest", "test from namespace")
-        // socket.emit("nspTest", {
-        //     test: "test"
-        // })
-        // socket.emit("nspTestMult", {
-        //     data: new Buffer("test")
-        // }, 2)
 
     socket.on("nspBinary", function(data) {
         println(data)

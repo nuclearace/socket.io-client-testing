@@ -1,4 +1,4 @@
-var socket = require('socket.io-client')("http://localhost:8080", {path: '/test/', transports: ["polling"]})
+var socket = require('socket.io-client')("http://localhost:8080", {transports: ["websocket"]})
 
 socket.on("connect", function() {
 	console.log("connected")
