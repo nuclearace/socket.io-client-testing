@@ -8,7 +8,7 @@ let package = Package(
         .executable(name: "socket.io-test", targets: ["Runner"])
     ],
     dependencies: [
-        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMajor(from: "12.0.0"))
+        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMajor(from: "13.0.0"))
     ],
     targets: [
         .target(name: "Runner", dependencies: ["SocketIO"], path: "./Sources")
